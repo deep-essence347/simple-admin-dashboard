@@ -1,0 +1,9 @@
+
+.autodrop:hover>.autodrop-menu {
+    display: block;
+}
+
+.autodrop>.autodrop-toggle:active {
+    pointer-events: none;
+}
+  

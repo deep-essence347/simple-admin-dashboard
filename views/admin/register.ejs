@@ -1,0 +1,54 @@
+<%- include('../partials/header');%>
+<%- include('../partials/adminNav') %>
+
+<div class="container p-3">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+            <form class="card" action="/admin/register" method="POST">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">Register</h6>
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputFirstName">First Name</label>
+                            <input type="text" name='firstName' class="form-control" id="exampleInput" aria-describedby="nameHelp" placeholder="Enter First Name">
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputLastName">Last Name</label>
+                            <input type="text" name='lastName' class="form-control" id="exampleInput" aria-describedby="nameHelp" placeholder="Enter Last Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputUsername">Username</label>
+                            <input type="text" name='username' class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter Username">
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" name='email' class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputPassword">Password</label>
+                            <input type="password" name='password' class="form-control" id="exampleInputPassword" placeholder="Password">
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                            <label for="exampleInputCPassword">Confirm Password</label>
+                            <input type="password" name='cPassword' class="form-control" id="exampleInputCPassword" placeholder="Confirm Password">      
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminKey">Admin Key
+                            <p class="text-muted" style="font-size: 12px;"><span class="d-inline" style="color: red;">*</span>You must enter the admin key to proceed.</p>
+                        </label>
+                        <input type="password" class="form-control" name="adminKey" placeholder="Admin Key" value='MyWeb' required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/admin" class="btn btn-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer');%>

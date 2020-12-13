@@ -1,0 +1,11 @@
+<%- include('partials/header'); %>
+<%- include('partials/navbar') %>
+
+<div class="container p-4">
+    <div class="text-center">
+        Welcome <strong><%=currentUser.firstName +' '+ currentUser.lastName%></strong>!
+    </div>
+    <a href="/logout" class="btn btn-light">Logout</a>
+</div>
+
+<%- include('partials/footer'); %>

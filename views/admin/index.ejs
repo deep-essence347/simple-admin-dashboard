@@ -1,0 +1,32 @@
+<%- include('../partials/header'); %>
+<%- include('../partials/adminNav') %>
+
+<div class="container p-3">
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <form class="card" action="/admin/login" method="post">
+                <div class="card-body">
+                    <h6 class="card-title text-muted">Login</h6>
+                    <div class="form-group">
+                        <label for="usernameInput">Username</label>
+                        <input type="text" name="username" placeholder="Enter Username" id="usernameInput" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" name="password" placeholder="Enter Password" id="passwordInput" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminKey">Admin Key
+                            <p class="text-muted" style="font-size: 12px;"><span class="d-inline" style="color: red;">*</span>You must enter the admin key to proceed.</p>
+                        </label>
+                        <input type="password" class="form-control" name="adminKey" placeholder="Admin Key" value='MyWeb' required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="/" class="btn btn-light">Go to Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>

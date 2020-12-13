@@ -1,0 +1,141 @@
+<%- include('../partials/header'); %>
+<%- include('../partials/adminNav'); %>
+
+<div class="container-fluid">
+    <div class="card shadow mb-4 p-3">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"> Admin Profile
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width='100%' cellspacing='0'>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <% if(!isAdmin) { %>
+                                <th>Verified User</th>
+                                <th>Manage</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <% if(users.length > 0) { %>
+                    <tbody>
+                        <% users.forEach(function(user) {%>
+                        <tr>
+                            <td><%=user._id%></td>
+                            <td><%=user.firstName + ' ' + user.lastName%></td>
+                            <td><%=user.username%></td>
+                            <td><%=user.email%></td>
+                            <% if(!isAdmin) { %>
+                                <td>
+                                    <% if(user.isVerified) { %>
+                                        <i class="fas fa-check-circle fa-2x text-success"></i>
+                                    <% } else { %>
+                                        <i class="fas fa-times-circle fa-2x text-danger"></i>                            
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <div class="dropdown no-arrow">
+                                        <i class="fas fa-ellipsis-h text-dark"  id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="/admin/edit/id=<%= user._id %>" type="button" >
+                                                <i class="fas fa-user-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Edit
+                                            </a>
+                                            <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#verifyUserModal" data-value = "<%= user._id %>">
+                                                <% if(!user.isVerified) { %>
+                                                    <i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Verify
+                                                <% } else {%>
+                                                    <i class="fas fa-user-times fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Unverify
+                                                <% } %>
+                                            </a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteUserModal" data-value = "<%= user._id %>">
+                                                <i class="fas fa-trash-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Remove
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            <% } %>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    <% } else { %>
+                        <h4 class="text-muted">No users available.</h4>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!-- User Delete Modal -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <form action="" id="removeForm" method="POST" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to remove this user?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">If you remove this user, the access to his/her account will be removed permanently.</div>
+                <div class="form-group mx-auto">
+                    <label for="adminKey">Admin Key</label>
+                    <input type="password" class="form-control" name="adminKey" placeholder="Admin Key" value='MyWeb' required>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Remove</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<!-- User Verify Modal -->
+    <div class="modal fade" id="verifyUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+        <form action="" method="POST" id="verifyForm" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to verify this user?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Verifying this user will allow him/her to access advanced features.</div>
+                <div class="form-group mx-auto">
+                    <label for="adminKey">Admin Key</label>
+                    <input type="password" class="form-control" name="adminKey" placeholder="Admin Key" value='MyWeb' required>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Verify</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<!-- Script -->
+<script>
+    $('#deleteUserModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var user = button.data('value');
+        var modal = $(this);
+        $("form#removeForm").attr('action','/admin/remove/'+user);
+    });
+
+    $('#verifyUserModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var user = button.data('value');
+        var modal = $(this);
+        $("form#verifyForm").attr('action','/admin/verify/'+user);
+    });
+</script>
+<%- include('../partials/footer'); %>
